@@ -14,6 +14,11 @@ class SlackSecure extends Bot
         $this->objApi = new \CL\Slack\Transport\ApiClient($this->objConfig["app"]["token"]);
     }
 
+    /**
+     * Handles the messages from Slacks' RTM
+     * @param \Ratchet\RFC6455\Messaging\MessageInterface $msg
+     * @return mixed
+     */
     public function handleMessage(\Ratchet\RFC6455\Messaging\MessageInterface $msg)
     {
        $arrMessage = json_decode($msg, true);
@@ -40,7 +45,14 @@ class SlackSecure extends Bot
      */
     public function reconnect_url(array $arrMessage)
     {
-        echo "[RECONNECT] URL Received". PHP_EOL;
+        if($this->objConfig["app"]["debug"]) {
+            echo "[RECONNECT] URL Received" . PHP_EOL;
+        }
+    }
+
+    public function hello(array $arrMessage)
+    {
+        echo PHP_EOL . PHP_EOL . "\e[33m--- CONNECTED SUCCESSFULLY ---\e[0m". PHP_EOL . PHP_EOL;
     }
 
     /**
@@ -76,7 +88,7 @@ class SlackSecure extends Bot
     public function bot_added(array $arrMessage)
     {
         echo "\e[33mBOT\e[0m Bot '". $arrMessage["bot"]["name"] ."' was added.";
-        $this->revokeToken($arrMessage);
+        //@todo - see if we can revoke the token
     }
 
     /**
@@ -98,6 +110,11 @@ class SlackSecure extends Bot
         }
     }
 
+    /**
+     * Handles subtype messages
+     * @param   array       $arrMessage     The payload from Slack
+     * @return   bool
+     */
     private function doSubtypeMessage(array $arrMessage)
     {
         if(isset($arrMessage["bot_id"]) === false OR $arrMessage['subtype'] === 'message_deleted') {
@@ -111,22 +128,5 @@ class SlackSecure extends Bot
             echo"\t BOT '". $arrMessage['username'] ."' (". $arrMessage['bot_id'] .") IS WHITELISTED." . PHP_EOL;
         }
 
-    }
-
-    private function revokeToken(array $arrMessage)
-    {
-        print_r($arrMessage);
-        echo "Revoked Token";
-        die;
-
-        $objPayload = new \CL\Slack\Payload\AuthRevokePayload();
-        $objPayload->setToken("xoxp-231275571699-231451258836-230781957568-d4d7e3276a4cfbc2a798afc6dddb77bd");
-
-        $objResponse = $this->objApi->send($objPayload);
-        if($objResponse->isOk()) {
-            echo "\t \e[33mSUCCESS\e[0m TOKEN WAS REVOKED" . PHP_EOL;
-        } else {
-            echo "\t \e[91mFAILED\e[0m Unable to revoke token: ". $objResponse->getError() . PHP_EOL;
-        }
     }
 }
