@@ -1,0 +1,9 @@
+; token is your legacy token for this integration.
+; debug is a (int) bool to be verbose logging.
+[app]
+token = ""
+debug = 0
+
+; bot_ids is a comma separated list of IDS that can post messages.
+[whitelist]
+bot_ids = ""
