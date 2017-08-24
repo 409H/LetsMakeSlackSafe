@@ -7,11 +7,15 @@ class SlackSecure extends Bot
     private $objConfig;
     private $objApi;
 
+    private $arrScamDomains;
+
     public function __construct()
     {
         $this->objConfig = parse_ini_file(__DIR__ ."/../config.ini", true);
         parent::__construct($this->objConfig["app"]["token"]);
         $this->objApi = new \CL\Slack\Transport\ApiClient($this->objConfig["app"]["token"]);
+
+        $this->arrScamDomains = [1];
     }
 
     /**
@@ -70,7 +74,7 @@ class SlackSecure extends Bot
             echo "\e[33mMESSAGE\e[0m " . $arrMessage['user'] . " posted a message to channel: " . $arrMessage['channel'] . PHP_EOL;
         }
 
-        //Delete reminders
+        //Delete reminders to everyone
         if (preg_match("/\<!everyone\>/", $arrMessage["text"])) {
             $this->doMessageDelete($arrMessage, "REMINDER");
         }
@@ -78,6 +82,11 @@ class SlackSecure extends Bot
         //Delete Slackbot
         if ($arrMessage["user"] === "USLACKBOT") {
             $this->doMessageDelete($arrMessage, "SLACKBOT");
+        }
+
+        //Process + commands
+        if (preg_match("/^\+/", $arrMessage["text"])) {
+            $this->doMessageCommand($arrMessage);
         }
     }
 
@@ -128,5 +137,39 @@ class SlackSecure extends Bot
             echo"\t BOT '". $arrMessage['username'] ."' (". $arrMessage['bot_id'] .") IS WHITELISTED." . PHP_EOL;
         }
 
+    }
+
+    private function doMessageCommand(array $arrMessage)
+    {
+        switch(ltrim($arrMessage["text"], "+")) {
+            //get your user id for config settings
+            case 'userid' :
+                if($this->objConfig["admin"]["userid"] == "") {
+                    echo PHP_EOL . "\e[91mCOMMAND\e[0m Userid: " . $arrMessage["user"] . PHP_EOL;
+                }
+                break;
+            //update the scam domains
+            case 'update' :
+                $objGuzzle = new GuzzleHttp\Client();
+                $objResponse = $objGuzzle->request("GET", "https://etherscamdb.info/data/scams.json");
+
+                if($this->objConfig["admin"]["userid"] == $arrMessage["user"]) {
+                    if ($objResponse->getStatusCode() == 200) {
+                        $this->arrScamDomains = json_decode($objResponse->getBody()->getContents(), true);
+                        echo PHP_EOL . "\e[91mCOMMAND\e[0m Updated domains: " . number_format(count($this->arrScamDomains)) . PHP_EOL;
+                    } else {
+                        echo PHP_EOL . "\e[91mCOMMAND\e[0m Failed to update domains: HTTP" . $objResponse->getStatusCode() . PHP_EOL;
+                    }
+                } else {
+                    echo PHP_EOL . "\e[91mCOMMAND\e[0m Failed to update domains: set your admin[userid] config item." . PHP_EOL;
+                }
+                break;
+            default:
+                return true;
+                break;
+        }
+
+        //Then delete that message
+        $this->doMessageDelete($arrMessage, "COMMAND MESSAGE");
     }
 }
