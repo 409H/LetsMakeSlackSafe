@@ -7,6 +7,15 @@
  * Run `cp config.ini.template config.ini` and put your legacy token into `app[token]`.
  * Run `php -f index.php`
 
+### Commands
+
+To set up some things, you need to know things that aren't publicly viewable. Below is a table of things you can run
+
+| Command   	| Example Response           	    | Description                                          	|
+|-----------	|----------------------------	    |------------------------------------------------------	|
+| `+userid` 	| `COMMAND Userid: XXXXXXXX` 	    | Gives your slack user id for `admin[userid]` setting 	|
+| `+update` 	| `COMMAND Updated domains: 2,141` 	| Updates the blacklist of domains provided by ESD   	|
+
 ## What does it do?
 
 - [x] Disables use of people using Slackbot to remind channels.
