@@ -22,3 +22,10 @@
 * Periodically remind admin users who don't have 2fa enabled to enable it.
 * Look at URLS in messages and see if they're in the [EtherScamDb](https://etherscamdb.info/) database.
 * Archive deleted messages to an archive private channel for admins to look at.
+
+## Author
+
+* https://twitter.com/sniko_
+* https://harrydenley.com/
+
+Donations of ETH & ERC20 are accepted: 0xa4973cA595630F794413AAF290C4cf780987b142
