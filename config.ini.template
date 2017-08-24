@@ -7,3 +7,7 @@ debug = 0
 ; bot_ids is a comma separated list of IDS that can post messages.
 [whitelist]
 bot_ids = ""
+
+; userid is a string holding your slack user id.
+[admin]
+userid = ""
