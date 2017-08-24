@@ -2,10 +2,13 @@
 
 
 ## Installation
+ * Clone the repository
+ * Run `composer update`
  * Log into your Slack team
  * Go here and generate a legacy token for you: https://api.slack.com/custom-integrations/legacy-tokens
  * Run `cp config.ini.template config.ini` and put your legacy token into `app[token]`.
  * Run `php -f index.php`
+ * Start chatting in Slack
 
 ### Commands
 
