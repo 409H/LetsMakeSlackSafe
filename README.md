@@ -8,4 +8,4 @@ Go here and generate a legacy token for you: https://api.slack.com/custom-integr
   * This will also reduce the attack vector of people creating apps and messaging everyone to look more legit. See:
 
 ## No more of these messages phishing your users!
-![https://github.com/409H/LetsMakeSlackSafe/blob/master/img/no-more-app-phishing.PNG?raw=true]
+![https://github.com/409H/LetsMakeSlackSafe/blob/master/img/no-more-app-phishing.PNG?raw=true](https://github.com/409H/LetsMakeSlackSafe/blob/master/img/no-more-app-phishing.PNG?raw=true)
