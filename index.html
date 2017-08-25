@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css"
+          integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <title>Make Slack Safe Again</title>
+</head>
+<body>
+<a href="https://github.com/409H/LetsMakeSlackSafe#installation" class="github-corner"
+   aria-label="View source on Github" target="_blank">
+    <svg width="80" height="80" viewBox="0 0 250 250"
+         style="fill:#e4e4e4; color:#000000; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+<div id="header">
+    <img src="img/banner.png"/>
+</div>
+
+<div id="content">
+
+    <div class="pure-g">
+        <div class="pure-u-1-24"></div>
+        <div class="pure-u-22-24">
+            <h3>What does it <u>actually</u> do?</h3>
+            <ul>
+                <li>Disables use of people using Slackbot to remind channels.</li>
+                <li>Disables people from sending messages as anyone through the open legacy tokens api.</li>
+                <ul>
+                    <li>You can whitelist the <code>bot_ids</code> in <code>config.ini</code> that are allowed to post
+                        messages.
+                    </li>
+                    <li>This will also reduce the attack vector of people creating apps and messaging everyone to look more
+                        legit.
+                    </li>
+                </ul>
+                <li>Periodically remind you to enable 2fa if iy's not enabled.</li>
+                <li>Posts warnings of URLs in messages if they're currently being tracked in <a
+                        href="https://etherscamdb.info">EtherScamDB</a></li>
+                <li>Archive the auto-deleted messages to an archive private channel for admins to look at.</li>
+                <li>A quick "Deploy to Heroku" so you can get on with business and have this running in the background,
+                    doing its thing.
+                </li>
+            </ul>
+        </div>
+        <div class="pure-u-1-24"></div>
+    </div>
+
+    <br />
+
+    <div class="pure-g">
+        <div class="pure-u-1-24"></div>
+        <div class="pure-u-11-24">
+            <h3>What's happening now in public channels</h3>
+            <p>
+                Below you will see an example of a bad actor using Slack API to send a message to a public channel
+                as any user (notice "MyEtherWallet" isn't a listed user or app) and make an 'attachment' with a link
+                to what looks like myetherwallet.com - but it's not. It's a link to another domain, which usually is
+                a MyEtherWallet clone (or ICO website clone) modified to steal users private keys. This is also
+                happening within the <code>slackbot</code> channel.
+            </p>
+            <video src="videos/public-without.mp4" controls height="480px" width="500px">
+                Sorry, your browser doesn't support embedded videos,
+                but don't worry, you can <a href="videos/public-without.mp4">download it</a>
+                and watch it with your favorite video player!
+            </video>
+        </div>
+        <div class="pure-u-11-24">
+            <h3>With the SafeSlack tool</h3>
+            <p>
+                Below you will see the same message being sent - but because the bot isn't whitelisted (in <code>config.ini</code>)
+                the message gets auto-deleted before anyone has the chance to read and click it - it also gets
+                auto-deleted
+                within the <code>slackbot</code> channel.
+            </p>
+            <video src="videos/public-with.mp4" controls height="480px" width="800px">
+                Sorry, your browser doesn't support embedded videos,
+                but don't worry, you can <a href="videos/public-with.mp4">download it</a>
+                and watch it with your favorite video player!
+            </video>
+        </div>
+        <div class="pure-u-1-24"></div>
+    </div>
+
+    <br/>
+
+    <div id="footer">
+        <p>
+            <strong>Author:</strong> Harry Denley &mdash; <a href="https://harrydenley.com/">harrydenley.com</a> <br /><br />
+            Donations of ETH & ERC20 are accepted: 0xa4973cA595630F794413AAF290C4cf780987b142
+        </p>
+    </div>
+</body>
+</html>
