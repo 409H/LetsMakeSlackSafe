@@ -29,7 +29,9 @@
     <div class="pure-g">
         <div class="pure-u-1-24"></div>
         <div class="pure-u-22-24">
-            <h3>What does it <u>actually</u> do? <small>(<a href="https://github.com/409H/LetsMakeSlackSafe#what-does-it-do">READ</a>)</small></h3>
+            <h3>What does it <u>actually</u> do?
+                <small>(<a href="https://github.com/409H/LetsMakeSlackSafe#what-does-it-do">READ</a>)</small>
+            </h3>
             <ul>
                 <li>Disables use of people using Slackbot to remind channels.</li>
                 <li>Disables people from sending messages as anyone through the open legacy tokens api.</li>
@@ -37,13 +39,15 @@
                     <li>You can whitelist the <code>bot_ids</code> in <code>config.ini</code> that are allowed to post
                         messages.
                     </li>
-                    <li>This will also reduce the attack vector of people creating apps and messaging everyone to look more
+                    <li>This will also reduce the attack vector of people creating apps and messaging everyone to look
+                        more
                         legit.
                     </li>
                 </ul>
                 <li>Periodically remind you to enable 2fa if it's not enabled.</li>
                 <li>Posts warnings of URLs in messages if they're currently being tracked in <a
-                        href="https://etherscamdb.info">EtherScamDB</a>.</li>
+                        href="https://etherscamdb.info">EtherScamDB</a>.
+                </li>
                 <li>Archive the auto-deleted messages to an archive private channel for admins to look at.</li>
                 <li>A quick "Deploy to Heroku" so you can get on with business and have this running in the background,
                     doing its thing.
@@ -56,18 +60,22 @@
     <div class="pure-g">
         <div class="pure-u-1-24"></div>
         <div class="pure-u-22-24">
-            <h3>What are commands?</h3>
+            <h3>What are commands?
+                <small>(<a href="https://github.com/409H/LetsMakeSlackSafe#commands" target="_blank">READ</a>)</small>
+            </h3>
             <p>
-                In the <code>config.ini</code> file, you will have a <code>admin[userid]</code> item, this will allow you
+                In the <code>config.ini</code> file, you will have a <code>admin[userid]</code> item, this will allow
+                you
                 to send <code>+cmd</code> within the <code>@Slackbot</code> channel to tell SafeSlack to do things, like
-                update a fresh copy of <a href="https://etherscamdb.info/data/scams.json" target="_blank">EtherScamDB tracked scam domains</a>
+                update a fresh copy of <a href="https://etherscamdb.info/data/scams.json" target="_blank">EtherScamDB
+                tracked scam domains</a>
                 so that messages with these links are auto-flagged.
             </p>
         </div>
         <div class="pure-u-1-24"></div>
     </div>
 
-    <br />
+    <br/>
 
     <div class="pure-g">
         <div class="pure-u-1-24"></div>
@@ -106,9 +114,28 @@
 
     <div id="footer">
         <p>
-            <strong>Author:</strong> Harry Denley &mdash; <a href="https://harrydenley.com/">harrydenley.com</a> <br /><br />
+            <strong>Author:</strong> Harry Denley &mdash; <a href="https://harrydenley.com/">harrydenley.com</a>
+            <br/><br/>
             Donations of ETH & ERC20 are accepted: 0xa4973cA595630F794413AAF290C4cf780987b142
         </p>
     </div>
+</div>
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-68598031-7', 'auto');
+    ga('send', 'pageview');
+
+</script>
 </body>
 </html>
