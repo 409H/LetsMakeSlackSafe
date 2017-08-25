@@ -28,6 +28,7 @@ To set up some things, you need to know things that aren't publicly viewable. Be
 - [ ] Periodically remind admin users who don't have 2fa enabled to enable it.
 - [ ] Look at URLS in messages and see if they're in the [EtherScamDb](https://etherscamdb.info/) database.
 - [ ] Archive deleted messages to an archive private channel for admins to look at.
+- [ ] Deploy to Heroku button
 
 ## Author
 
