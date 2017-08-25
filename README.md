@@ -32,7 +32,7 @@ To set up some things, you need to know things that aren't publicly viewable. Be
 
 ## Author
 
-* https://twitter.com/sniko_
-* https://harrydenley.com/
+* [https://twitter.com/sniko_](https://twitter.com/sniko_)
+* [https://harrydenley.com/](https://harrydenley.com/)
 
 Donations of ETH & ERC20 are accepted: 0xa4973cA595630F794413AAF290C4cf780987b142
