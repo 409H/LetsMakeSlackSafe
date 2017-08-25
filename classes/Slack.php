@@ -34,12 +34,10 @@ class SlackSecure extends Bot
                    break;
                default:
                    if($this->objConfig["app"]["debug"]) {
-                       echo $arrMessage["type"] . " handler not implemented!" . PHP_EOL;
+                       file_put_contents("php://stderr", $arrMessage["type"] . " handler not implemented!" . PHP_EOL);
                    }
                    break;
            }
-       } else {
-           print_r($arrMessage);
        }
     }
 
@@ -50,13 +48,13 @@ class SlackSecure extends Bot
     public function reconnect_url(array $arrMessage)
     {
         if($this->objConfig["app"]["debug"]) {
-            echo "[RECONNECT] URL Received" . PHP_EOL;
+            file_put_contents("php://stderr", "[RECONNECT] URL Received" . PHP_EOL);
         }
     }
 
     public function hello(array $arrMessage)
     {
-        echo PHP_EOL . PHP_EOL . "\e[33m--- CONNECTED SUCCESSFULLY ---\e[0m". PHP_EOL . PHP_EOL;
+        file_put_contents("php://stderr", PHP_EOL . PHP_EOL . "\e[33m--- CONNECTED SUCCESSFULLY ---\e[0m". PHP_EOL . PHP_EOL);
     }
 
     /**
@@ -71,7 +69,7 @@ class SlackSecure extends Bot
         }
 
         if($this->objConfig["app"]["debug"]) {
-            echo "\e[33mMESSAGE\e[0m " . $arrMessage['user'] . " posted a message to channel: " . $arrMessage['channel'] . PHP_EOL;
+            file_put_contents("php://stderr", "\e[33mMESSAGE\e[0m " . $arrMessage['user'] . " posted a message to channel: " . $arrMessage['channel'] . PHP_EOL);
         }
 
         //Delete reminders to everyone
@@ -113,9 +111,9 @@ class SlackSecure extends Bot
 
         $objResponse = $this->objApi->send($objPayload);
         if($objResponse->isOk()) {
-            echo "\t \e[33mSUCCESS\e[0m MESSAGE WAS DELETED (". $strReason .")" . PHP_EOL;
+            file_put_contents("php://stderr", "\t \e[33mSUCCESS\e[0m MESSAGE WAS DELETED (". $strReason .")" . PHP_EOL);
         } else {
-            echo "\t \e[91mFAILED\e[0m Unable to delete reminder: ". $objResponse->getError() . PHP_EOL;
+            file_put_contents("php://stderr", "\t \e[91mFAILED\e[0m Unable to delete reminder: ". $objResponse->getError() . PHP_EOL);
         }
     }
 
@@ -145,7 +143,7 @@ class SlackSecure extends Bot
             //get your user id for config settings
             case 'userid' :
                 if($this->objConfig["admin"]["userid"] == "") {
-                    echo PHP_EOL . "\e[91mCOMMAND\e[0m Userid: " . $arrMessage["user"] . PHP_EOL;
+                    file_put_contents("php://stderr", PHP_EOL . "\e[91mCOMMAND\e[0m Userid: " . $arrMessage["user"] . PHP_EOL);
                 }
                 break;
             //update the scam domains
@@ -156,12 +154,12 @@ class SlackSecure extends Bot
                 if($this->objConfig["admin"]["userid"] == $arrMessage["user"]) {
                     if ($objResponse->getStatusCode() == 200) {
                         $this->arrScamDomains = json_decode($objResponse->getBody()->getContents(), true);
-                        echo PHP_EOL . "\e[91mCOMMAND\e[0m Updated domains: " . number_format(count($this->arrScamDomains)) . PHP_EOL;
+                        file_put_contents("php://stderr", PHP_EOL . "\e[91mCOMMAND\e[0m Updated domains: " . number_format(count($this->arrScamDomains)) . PHP_EOL);
                     } else {
-                        echo PHP_EOL . "\e[91mCOMMAND\e[0m Failed to update domains: HTTP" . $objResponse->getStatusCode() . PHP_EOL;
+                        file_put_contents("php://stderr", PHP_EOL . "\e[91mCOMMAND\e[0m Failed to update domains: HTTP" . $objResponse->getStatusCode() . PHP_EOL);
                     }
                 } else {
-                    echo PHP_EOL . "\e[91mCOMMAND\e[0m Failed to update domains: set your admin[userid] config item." . PHP_EOL;
+                    file_put_contents("php://stderr", PHP_EOL . "\e[91mCOMMAND\e[0m Failed to update domains: set your admin[userid] config item." . PHP_EOL);
                 }
                 break;
             default:
