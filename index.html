@@ -5,7 +5,8 @@
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css"
           integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
-    <title>Make Slack Safe Again</title>
+    <title>Make Slack Safe</title>
+    <link rel="icon" href="https://harrydenley.com/assets/images/site/hd-blogo-16x16.png"/>
 </head>
 <body>
 <a href="https://github.com/409H/LetsMakeSlackSafe#installation" class="github-corner"
@@ -28,7 +29,7 @@
     <div class="pure-g">
         <div class="pure-u-1-24"></div>
         <div class="pure-u-22-24">
-            <h3>What does it <u>actually</u> do?</h3>
+            <h3>What does it <u>actually</u> do? <small>(<a href="https://github.com/409H/LetsMakeSlackSafe#what-does-it-do">READ</a>)</small></h3>
             <ul>
                 <li>Disables use of people using Slackbot to remind channels.</li>
                 <li>Disables people from sending messages as anyone through the open legacy tokens api.</li>
@@ -52,6 +53,20 @@
         <div class="pure-u-1-24"></div>
     </div>
 
+    <div class="pure-g">
+        <div class="pure-u-1-24"></div>
+        <div class="pure-u-22-24">
+            <h3>What are commands?</h3>
+            <p>
+                In the <code>config.ini</code> file, you will have a <code>admin[userid]</code> item, this will allow you
+                to send <code>+cmd</code> within the <code>@Slackbot</code> channel to tell SafeSlack to do things, like
+                update a fresh copy of <a href="https://etherscamdb.info/data/scams.json" target="_blank">EtherScamDB tracked scam domains</a>
+                so that messages with these links are auto-flagged.
+            </p>
+        </div>
+        <div class="pure-u-1-24"></div>
+    </div>
+
     <br />
 
     <div class="pure-g">
@@ -63,7 +78,7 @@
                 as any user (notice "MyEtherWallet" isn't a listed user or app) and make an 'attachment' with a link
                 to what looks like myetherwallet.com - but it's not. It's a link to another domain, which usually is
                 a MyEtherWallet clone (or ICO website clone) modified to steal users private keys. This is also
-                happening within the <code>slackbot</code> channel.
+                happening within the <code>@Slackbot</code> channel.
             </p>
             <video src="videos/public-without.mp4" controls height="480px" width="500px">
                 Sorry, your browser doesn't support embedded videos,
@@ -76,8 +91,7 @@
             <p>
                 Below you will see the same message being sent - but because the bot isn't whitelisted (in <code>config.ini</code>)
                 the message gets auto-deleted before anyone has the chance to read and click it - it also gets
-                auto-deleted
-                within the <code>slackbot</code> channel.
+                auto-deleted within the <code>@Slackbot</code> channel.
             </p>
             <video src="videos/public-with.mp4" controls height="480px" width="800px">
                 Sorry, your browser doesn't support embedded videos,
