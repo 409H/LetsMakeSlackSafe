@@ -7,7 +7,6 @@
   ],
   "require": {
     "chey/slackphp": "dev-master",
-    "cleentfaar/slack": "0.20.1",
-    "php": "^5.6.0"
+    "cleentfaar/slack": "0.20.1"
   }
 }
