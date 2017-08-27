@@ -1,7 +1,5 @@
 ![https://github.com/409H/LetsMakeSlackSafe/blob/master/img/banner.png?raw=true](https://github.com/409H/LetsMakeSlackSafe/blob/master/img/banner.png?raw=true)
 
-(This is not the finished piece - still working on it!)
-
 ## Installation
  * Clone the repository
  * Run `composer update`
@@ -21,6 +19,10 @@ To set up some things, you need to know things that aren't publicly viewable. Be
 | `+update` 	| `COMMAND Updated domains: 2,141` 	| Updates the blacklist of domains provided by ESD   	|
 
 ## What does it do?
+
+This is not the finished piece - still working on it! Currently it's protecting the users who are running it with their
+legacy token. I'm looking at putting it into a Slack app to run it on behalf of all users automatically so every user
+is protected. If an admin is running it, then all public channels will be protected.
 
 - [x] Disables use of people using Slackbot to remind channels.
 - [x] Disables people from sending messages as anyone through the open legacy tokens api.
