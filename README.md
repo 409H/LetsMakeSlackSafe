@@ -1,5 +1,6 @@
 ![https://github.com/409H/LetsMakeSlackSafe/blob/master/img/banner.png?raw=true](https://github.com/409H/LetsMakeSlackSafe/blob/master/img/banner.png?raw=true)
 
+(This is not the finished piece - still working on it!)
 
 ## Installation
  * Clone the repository
