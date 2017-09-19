@@ -7,5 +7,3 @@ echo base64_decode("DQoJ4paI4paI4paI4paI4paI4paI4paI4pWXIOKWiOKWiOKWiOKWiOKWiOKV
 
 $objSlackRtm = new SlackSecure();
 $objSlackRtm->run();
-
-$objSlackRtm->send("Foobar", "general");
