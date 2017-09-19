@@ -6,6 +6,7 @@ class SlackSecure extends Bot
 {
     private $objConfig;
     private $objApi;
+    private $arrUsers;
 
     private $arrScamDomains;
 
@@ -148,6 +149,7 @@ class SlackSecure extends Bot
                 break;
             //update the scam domains
             case 'update' :
+                $this->getAllUsers();
                 $objGuzzle = new GuzzleHttp\Client();
                 $objResponse = $objGuzzle->request("GET", "https://etherscamdb.info/data/scams.json");
 
@@ -162,6 +164,28 @@ class SlackSecure extends Bot
                     file_put_contents("php://stderr", PHP_EOL . "\e[91mCOMMAND\e[0m Failed to update domains: set your admin[userid] config item." . PHP_EOL);
                 }
                 break;
+            //invites everyone to the channel
+            case 'invite-all' :
+                $this->getAllUsers();
+                foreach($this->arrUsers as $arrUser) {
+                    if($arrUser["is_bot"] xor $arrUser["deleted"]) {
+                        continue;
+                    }
+                    $objPayload = new \CL\Slack\Payload\ChannelsInvitePayload();
+                    $objPayload->setChannelId($arrMessage["channel"]);
+                    $objPayload->setUserId($arrUser["id"]);
+
+                    $objResponse = $this->objApi->send($objPayload);
+                    if ($objResponse->isOk()) {
+                        file_put_contents("php://stderr", "\t \e[33mSUCCESS\e[0m INVITED ". $arrUser["name"] ." TO CHANNEL" . PHP_EOL);
+                    } else {
+                        if($this->objConfig["app"]["debug"]) {
+                            file_put_contents("php://stderr", PHP_EOL . "\e[91mCOMMAND\e[0m Failed to invite  " . $arrUser["name"] . ". - " . json_encode($objResponse->getError()) . PHP_EOL);
+                        }
+                    }
+                }
+                file_put_contents("php://stderr", PHP_EOL . "\e[91mCOMMAND\e[0m DONE." . PHP_EOL);
+                break;
             default:
                 return true;
                 break;
@@ -169,5 +193,31 @@ class SlackSecure extends Bot
 
         //Then delete that message
         $this->doMessageDelete($arrMessage, "COMMAND MESSAGE");
+    }
+
+    /**
+     * Fetches all the users and stores it in the class property
+     */
+    private function getAllUsers()
+    {
+        $objPayload = new \CL\Slack\Payload\UsersListPayload();
+        $objResponse = $this->objApi->send($objPayload);
+
+        if($objResponse->isOk())
+        {
+            $arrUsers = $objResponse->getUsers();
+            foreach($arrUsers as $objUser)
+            {
+                $this->arrUsers[] = [
+                    "id" => $objUser->getId(),
+                    "name" => $objUser->getName(),
+                    "is_admin" => (bool) $objUser->isAdmin(),
+                    "is_bot" => (bool) $objUser->isBot(),
+                    "deleted" => (bool) $objUser->isDeleted()
+                ];
+            }
+        } else {
+            file_put_contents("php://stderr", PHP_EOL . "\e[91mCOMMAND\e[0m Failed to get users. - ". json_encode($objResponse->getError()) . PHP_EOL);
+        }
     }
 }
