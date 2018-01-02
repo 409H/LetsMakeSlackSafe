@@ -38,4 +38,4 @@ is protected. If an admin is running it, then all public channels will be protec
 * [https://twitter.com/sniko_](https://twitter.com/sniko_)
 * [https://harrydenley.com/](https://harrydenley.com/)
 
-Donations of ETH & ERC20 are accepted: 0xa4973cA595630F794413AAF290C4cf780987b142
+Donations of ETH & ERC20 are accepted: 0x661b5dc032bedb210f225df4b1aa2bdd669b38bc
